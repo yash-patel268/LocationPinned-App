@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="100dp"
+    android:stretchColumns="1,2,3,4">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/cellID"
+            android:layout_column="1"
+            android:text="ID"
+            android:textSize="15sp"
+            android:layout_width="5dp"/>
+
+        <TextView
+            android:id="@+id/cellLat"
+            android:text="Latitude"
+            android:textSize="15sp"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_width="10dp"/>
+
+        <TextView
+            android:id="@+id/cellLong"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:text="Longitude"
+            android:textSize="15sp"
+            android:layout_width="10dp"/>
+
+        <TextView
+            android:id="@+id/cellAddress"
+            android:maxLines="3"
+            android:text="address"
+            android:textSize="15sp"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_width="20dp"/>
+    </TableRow>
+
+</TableLayout>
