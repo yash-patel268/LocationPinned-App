@@ -38,11 +38,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    //Initializing variables to which views will be assigned too
     private Button newLocation;
     private Button populate;
     private ListView locationListView;
     private List<Location> locations = new ArrayList<>();
-
     private SearchView search;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         locationListView = findViewById(R.id.listView);
 
+        //Calling custom functions
         setLocationAdapter();
         loadFromDBToMemory();
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         newLocation = findViewById(R.id.newLocationButton);
-        //Create onclick listener which will move to new note page
+        //Create onclick listener which will move to location page
         newLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         populate = findViewById(R.id.dataButton);
-        //Create onclick listener which will move to new note page
+        //Create onclick listener which will retrieve location data from local file
         populate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Custom function which reads data from file within raw folder
     private void readLocationData(){
+        //InputStream which will read each line within csv file and set each line as a location
         InputStream is = getResources().openRawResource(R.raw.locations);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
@@ -132,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
         recreate();
     }
+
+    //Custom function which initializes a custom adapter to allow location data cells to be list items
     private void setLocationAdapter() {
         LocationAdapater locationAdapater = new LocationAdapater(getApplicationContext(), Location.nonDeletedNotes());
         locationListView.setAdapter(locationAdapater);
@@ -164,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         sqLiteManager.populateLocationListArray();
     }
 
+    //Custom function save location data to database
     private void saveLocation(Double latitude, Double longitude, String address){
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         int id = Location.locationArrayList.size();
@@ -172,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         sqLiteManager.addLocationToDatabase(newLocation);
     }
 
+    //Custom function which will obtain location address from lat and long
     private String getAddress(Double latitude, Double longitude){
         String address = "";
 
@@ -195,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         return address;
     }
 
-    //Overwriting onResume returning main page to call adapter for notes
     @Override
     protected void onResume() {
         super.onResume();

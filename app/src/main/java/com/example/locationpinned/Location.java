@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Location {
-
+    //Initializing variables which will be used outside this class
     public static ArrayList<Location> locationArrayList = new ArrayList<>();
     public static String LOCATION_EDIT_EXTRA =  "locationEdit";
+    //Initializing the required variables to be used by this class
     private int id;
     private double latitude;
     private double longitude;
     private String address;
     private Date deleted;
 
+    //Creating constructors which will be used to assign values to each location
     public Location(int id, double latitude, double longitude, String address) {
         this.id = id;
         this.latitude = latitude;
@@ -29,6 +31,7 @@ public class Location {
         this.deleted = deleted;
     }
 
+    //Getters and setters for each location parameter
     public Location(){}
 
     public static Location getNoteForID(int passedNoteID)

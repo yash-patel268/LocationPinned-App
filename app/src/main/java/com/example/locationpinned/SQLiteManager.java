@@ -72,7 +72,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
-    //Function for when note is created will add it to the existing table
+    //Function for when location is created, will add it to the existing table
     public void addLocationToDatabase(Location location) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -108,8 +108,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     //Lets table data to be overwritten if required
-    public void updateLocationInDB(Location location)
-    {
+    public void updateLocationInDB(Location location) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_FIELD, location.getId());
@@ -128,12 +127,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     private Date getDateFromString(String string) {
-        try
-        {
+        try {
             return dateFormat.parse(string);
-        }
-        catch (ParseException | NullPointerException e)
-        {
+        } catch (ParseException | NullPointerException e) {
             return null;
         }
     }

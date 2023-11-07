@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class LocationDetails extends AppCompatActivity {
+    //Initializing variables to which views will be assigned too
     private Button cancelButton;
     private TextView addressTitle;
     private TextInputEditText latitude;
@@ -30,15 +31,15 @@ public class LocationDetails extends AppCompatActivity {
     private Button saveButton;
     private Location selectedLocation;
 
+    //Initialize variable which hold input values
     private Double latitudeInput;
     private Double longitudeInput;
-
     private String addressInput;
 
     Toast toast;
 
     protected void onCreate(Bundle savedInstanceState) {
-        //Once the app is created the home_screen.xml will load
+        //Once the app is created the location_details.xml will load
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_details);
 
@@ -48,13 +49,14 @@ public class LocationDetails extends AppCompatActivity {
         latitude = findViewById(R.id.latitudeInput);
         longitude = findViewById(R.id.longitudeInput);
 
+        //Give toast a message when an error situation occurs
         CharSequence text = "Enter lat or long with coordinates";
         int duration = Toast.LENGTH_SHORT;
         toast = Toast.makeText(getApplicationContext(), text, duration);
 
 
         saveButton = findViewById(R.id.saveLocationButton);
-        //Create onclick listener which will move to new note page
+        //Create onclick listener which will save location to database
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +70,7 @@ public class LocationDetails extends AppCompatActivity {
         });
 
         cancelButton = findViewById(R.id.cancelLocationButton);
-        //Create onclick listener which will move to new note page
+        //Create onclick listener which will return user to main page
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +79,7 @@ public class LocationDetails extends AppCompatActivity {
         });
 
         deleteButton = findViewById(R.id.deleteLocationButton);
-        //Create onclick listener which will move to new note page
+        //Create onclick listener which will delete location from database
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +91,8 @@ public class LocationDetails extends AppCompatActivity {
         checkForEditLocation();
     }
 
+    //Custom function which will be check if note is being edited
+    //Will display certain views if location is being edited
     private void checkForEditLocation() {
         Intent previousIntent = getIntent();
 
@@ -109,6 +113,7 @@ public class LocationDetails extends AppCompatActivity {
         }
     }
 
+    //Custom function which saves the location to database using user inputs
     private void saveLocation(View view){
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String str= String.valueOf(latitude.getText());
@@ -131,7 +136,7 @@ public class LocationDetails extends AppCompatActivity {
         }
     }
 
-    //Custom function which will allow notes to be deleted from sqlite table
+    //Custom function which will allow location to be deleted from sqlite table
     public void deleteLocation(View view)
     {
         selectedLocation.setDeleted(new Date());
@@ -140,6 +145,7 @@ public class LocationDetails extends AppCompatActivity {
         finish();
     }
 
+    //Custom function which will take lat and long to find address using geocoding
     private String getAddress(Double latitude, Double longitude){
         String address = "";
 
